@@ -5,7 +5,7 @@ const Navbar = () => {
     "relative text-cyan-300 font-medium cursor-pointer transition after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full";
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-900 border-b border-slate-700">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-700 border-b border-slate-700">
       <div className="max-w-7xl mx-auto px-6">
         <div className="h-16 flex items-center justify-between">
           {/* Logo */}
