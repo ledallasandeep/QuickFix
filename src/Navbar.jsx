@@ -26,6 +26,7 @@ const Navbar = () => {
           <button className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
             Book a Repair
           </button>
+          <h1 className="text-black">p</h1>
         </div>
       </div>
     </nav>
