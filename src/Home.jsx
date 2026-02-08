@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <section className="w-full pt-20 bg-slate-200">
       {/* Hero Image Card */}
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto my-5 px-6">
         <div
           className="relative h-[520px] rounded-2xl overflow-hidden shadow-lg bg-cover bg-center"
           style={{ backgroundImage: "url(/MBrepair.png)" }}
