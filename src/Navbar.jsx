@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Wrench, Sparkles, User, LogIn, UserPlus } from "lucide-react";
 
 const Navbar = () => {
   const [accountOpen, setAccountOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -12,7 +14,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const menuItems = ["Home", "Services", "Pricing", "About", "Contact"];
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
     <nav
@@ -23,10 +31,9 @@ const Navbar = () => {
       }`}
     >
       <div className="w-full px-4">
-        {/* GRID LAYOUT */}
         <div className="grid grid-cols-[auto_1fr_auto_auto] items-center h-20 gap-6">
           {/* LOGO */}
-          <div className="flex items-center gap-3 cursor-pointer">
+          <Link to="/" className="flex items-center gap-3">
             <div className="bg-slate-800 p-2 rounded-lg border border-cyan-500/30">
               <Wrench className="w-6 h-6 text-cyan-400" />
             </div>
@@ -36,25 +43,34 @@ const Navbar = () => {
               </span>
               <span className="text-white">Fix</span>
             </h1>
-          </div>
+          </Link>
 
-          {/* CENTER MENU (BETWEEN LOGO & BUTTON) */}
+          {/* DESKTOP MENU */}
           <ul className="hidden lg:flex justify-center items-center gap-8">
             {menuItems.map((item) => (
-              <li
-                key={item}
-                className="relative text-slate-300 font-medium cursor-pointer group"
-              >
-                <span className="group-hover:text-white transition">
-                  {item}
-                </span>
-                {/* underline */}
-                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
+              <li key={item.name} className="relative group">
+                <Link
+                  to={item.path}
+                  className={`font-medium transition ${
+                    location.pathname === item.path
+                      ? "text-white"
+                      : "text-slate-300 hover:text-white"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+                <span
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-cyan-400 transition-all duration-300 ${
+                    location.pathname === item.path
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                ></span>
               </li>
             ))}
           </ul>
 
-          {/* BOOK REPAIR */}
+          {/* BOOK BUTTON */}
           <button className="hidden lg:flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white px-6 py-2.5 rounded-full font-semibold shadow-lg hover:scale-105 transition">
             Book a Repair
             <Sparkles className="w-4 h-4" />
@@ -90,7 +106,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+          {/* MOBILE BUTTON */}
           <button
             onClick={() => setMobileMenu(!mobileMenu)}
             className="lg:hidden ml-auto w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400"
@@ -104,14 +120,20 @@ const Navbar = () => {
       {mobileMenu && (
         <div className="lg:hidden bg-slate-900 border-t border-slate-800 px-4 py-6 space-y-4">
           {menuItems.map((item) => (
-            <div
-              key={item}
-              className="text-slate-300 hover:text-white cursor-pointer"
+            <Link
+              key={item.name}
+              to={item.path}
               onClick={() => setMobileMenu(false)}
+              className={`block ${
+                location.pathname === item.path
+                  ? "text-white"
+                  : "text-slate-300 hover:text-white"
+              }`}
             >
-              {item}
-            </div>
+              {item.name}
+            </Link>
           ))}
+
           <button className="w-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white py-3 rounded-xl font-semibold">
             Book a Repair
           </button>
